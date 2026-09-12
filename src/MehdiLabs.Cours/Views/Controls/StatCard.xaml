@@ -1,0 +1,37 @@
+<UserControl x:Class="MehdiLabs.Cours.Views.Controls.StatCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="120" d:DesignWidth="250">
+    <Border Style="{StaticResource Card}" Background="{DynamicResource BgSidebarBrush}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="TitleText" Text="Titre" Grid.Row="0" Grid.Column="0" 
+                       Foreground="{DynamicResource FgMutedBrush}" 
+                       FontSize="14" FontWeight="SemiBold"/>
+            
+            <TextBlock x:Name="ValueText" Text="0" Grid.Row="1" Grid.Column="0" 
+                       Foreground="{DynamicResource FgPrimaryBrush}" 
+                       FontSize="36" FontWeight="Bold" Margin="0,10,0,0" 
+                       VerticalAlignment="Bottom"/>
+
+            <Border x:Name="IconBorder" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" 
+                    Background="{DynamicResource AccentBrush}" 
+                    Width="50" Height="50" CornerRadius="25" 
+                    HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock x:Name="IconText" Text="⭐" FontSize="24" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

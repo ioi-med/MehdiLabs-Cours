@@ -1,0 +1,100 @@
+<Page x:Class="MehdiLabs.Cours.Views.Pages.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:controls="clr-namespace:MehdiLabs.Cours.Views.Controls"
+      xmlns:viewmodels="clr-namespace:MehdiLabs.Cours.ViewModels"
+      d:DataContext="{d:DesignInstance Type=viewmodels:DashboardViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="Dashboard">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <TextBlock Text="Vue d'ensemble" FontSize="28" FontWeight="Bold" 
+                       Foreground="{DynamicResource FgPrimaryBrush}" Margin="0,0,0,20"/>
+
+            <!-- Cards -->
+            <UniformGrid Grid.Row="1" Columns="4" Rows="1" Margin="0,0,0,30">
+                <controls:StatCard Margin="0,0,15,0" Title="COURS TOTAL" 
+                                   Value="{Binding TotalCourses}" Icon="📄" 
+                                   IconBackground="{DynamicResource AccentBrush}"/>
+                <controls:StatCard Margin="0,0,15,0" Title="MATIÈRES" 
+                                   Value="{Binding TotalSubjects}" Icon="📁" 
+                                   IconBackground="{DynamicResource SuccessBrush}"/>
+                <controls:StatCard Margin="0,0,15,0" Title="MOTS ÉCRITS" 
+                                   Value="{Binding TotalWords}" Icon="📝" 
+                                   IconBackground="{DynamicResource PurpleBrush}"/>
+                <controls:StatCard Margin="0,0,0,0" Title="SESSION ACTUELLE" 
+                                   Value="{Binding SessionDuration}" Icon="⏱️" 
+                                   IconBackground="{DynamicResource WarningBrush}"/>
+            </UniformGrid>
+
+            <!-- Listes -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Récents -->
+                <Border Grid.Column="0" Style="{StaticResource Card}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Fichiers récents" FontSize="18" FontWeight="SemiBold" 
+                                   Foreground="{DynamicResource FgPrimaryBrush}" Margin="0,0,0,15"/>
+                        <ListBox Grid.Row="1" ItemsSource="{Binding RecentFiles}" 
+                                 Background="Transparent" BorderThickness="0"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                                        <TextBlock Text="📄" Margin="0,0,10,0"/>
+                                        <TextBlock Text="{Binding}" Foreground="{DynamicResource FgPrimaryBrush}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Border>
+
+                <!-- TODOs -->
+                <Border Grid.Column="2" Style="{StaticResource Card}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Tâches à faire (TODOs)" FontSize="18" FontWeight="SemiBold" 
+                                   Foreground="{DynamicResource FgPrimaryBrush}" Margin="0,0,0,15"/>
+                        <ListBox Grid.Row="1" ItemsSource="{Binding Todos}" 
+                                 Background="Transparent" BorderThickness="0"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                                        <CheckBox IsEnabled="False" Margin="0,0,10,0"/>
+                                        <TextBlock Text="{Binding Text}" Foreground="{DynamicResource FgPrimaryBrush}"/>
+                                        <TextBlock Text="{Binding FileName, StringFormat=' ({0})'}" Foreground="{DynamicResource FgMutedBrush}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>

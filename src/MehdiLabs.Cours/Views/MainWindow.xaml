@@ -1,0 +1,84 @@
+<Window x:Class="MehdiLabs.Cours.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:MehdiLabs.Cours.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+        mc:Ignorable="d"
+        Title="MehdiLabs Cours V2.0" Height="720" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource BgMainBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar Navigation -->
+        <Border Grid.Column="0" Background="{DynamicResource BgSidebarBrush}" BorderThickness="0,0,1,0" BorderBrush="{DynamicResource BorderBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Logo / Titre -->
+                <StackPanel Grid.Row="0" Margin="20,30,20,40">
+                    <TextBlock Text="MehdiLabs" Foreground="{DynamicResource FgPrimaryBrush}" FontSize="24" FontWeight="Bold"/>
+                    <TextBlock Text="Cours V2.0" Foreground="{DynamicResource AccentBrush}" FontSize="14" FontWeight="SemiBold"/>
+                </StackPanel>
+
+                <!-- Navigation Buttons -->
+                <StackPanel Grid.Row="1">
+                    <Button Content="📊 Dashboard" Style="{StaticResource NavButton}" Command="{Binding NavigateDashboardCommand}"/>
+                    <Button Content="📁 Fichiers" Style="{StaticResource NavButton}" Command="{Binding NavigateFilesCommand}"/>
+                    <Button Content="💬 Chat IA" Style="{StaticResource NavButton}" Command="{Binding NavigateChatCommand}"/>
+                    <Button Content="⚙️ Paramètres" Style="{StaticResource NavButton}" Command="{Binding NavigateSettingsCommand}"/>
+                </StackPanel>
+
+                <!-- Pomodoro Timer -->
+                <Border Grid.Row="2" Background="{DynamicResource BgSecondaryBrush}" CornerRadius="10" Margin="15" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="Pomodoro" Foreground="{DynamicResource FgSecondaryBrush}" FontSize="12" Margin="0,0,0,5"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding PomodoroDisplay}" Foreground="{DynamicResource FgPrimaryBrush}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" Content="{Binding PomodoroIcon}" Style="{StaticResource FlatButton}" Command="{Binding TogglePomodoroCommand}" Width="40" Height="40" Padding="0"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Frame content -->
+            <Frame x:Name="MainFrame" Grid.Row="0" NavigationUIVisibility="Hidden"/>
+
+            <!-- Status Bar -->
+            <Border Grid.Row="1" Background="{DynamicResource BgSidebarBrush}" BorderThickness="0,1,0,0" BorderBrush="{DynamicResource BorderBrush}" Padding="10,5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Column="0" Text="Prêt" Foreground="{DynamicResource FgSecondaryBrush}" FontSize="12"/>
+                    <TextBlock Grid.Column="2" Text="v2.0.0 — Propulsé par WPF &amp; .NET 8" Foreground="{DynamicResource FgMutedBrush}" FontSize="12"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

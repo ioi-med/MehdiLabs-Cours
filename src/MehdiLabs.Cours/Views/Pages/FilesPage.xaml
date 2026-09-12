@@ -1,0 +1,104 @@
+<Page x:Class="MehdiLabs.Cours.Views.Pages.FilesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:models="clr-namespace:MehdiLabs.Cours.Models"
+      xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="Fichiers">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" MinWidth="150"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Arbre de Fichiers (Gauche) -->
+        <Grid Grid.Column="0" Background="{DynamicResource BgSidebarBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Fichiers" Grid.Row="0" Foreground="{DynamicResource FgPrimaryBrush}" 
+                       FontSize="18" FontWeight="SemiBold" Margin="15,15,15,10"/>
+
+            <TextBox Grid.Row="1" Style="{StaticResource ModernTextBox}" Margin="15,0,15,10"
+                     Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                     Tag="Rechercher..." />
+
+            <!-- Boutons CRUD -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="15,0,15,10">
+                <Button Content="📄 Nouveau" Style="{StaticResource FlatButton}" Click="CreateFile_Click" Padding="8,4" Margin="0,0,5,0" ToolTip="Nouveau cours (.md)"/>
+                <Button Content="📁 Dossier" Style="{StaticResource FlatButton}" Click="CreateFolder_Click" Padding="8,4" Margin="0,0,5,0" ToolTip="Nouveau dossier"/>
+                <Button Content="🗑️ Supprimer" Style="{StaticResource FlatButton}" Click="Delete_Click" Padding="8,4" Foreground="{DynamicResource DangerBrush}" ToolTip="Supprimer la sélection"/>
+            </StackPanel>
+
+            <TreeView x:Name="FileTreeView" Grid.Row="3" Background="Transparent" BorderThickness="0"
+                      ItemsSource="{Binding Files}"
+                      SelectedItemChanged="FileTreeView_SelectedItemChanged">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type models:CourseFile}" ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal" Margin="2,4">
+                            <TextBlock Text="{Binding DisplayName}" Foreground="{DynamicResource FgPrimaryBrush}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
+
+        <!-- Splitter 1 -->
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" 
+                      Background="{DynamicResource BorderBrush}"/>
+
+        <!-- Éditeur Markdown (Milieu) -->
+        <Grid Grid.Column="2" Background="{DynamicResource BgMainBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Toolbar -->
+            <Border Grid.Row="0" Background="{DynamicResource BgSidebarBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1" Padding="10">
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="💾" Style="{StaticResource FlatButton}" Click="Save_Click" ToolTip="Sauvegarder" Padding="8,4" Margin="0,0,5,0"/>
+                        <TextBlock x:Name="FileNameText" Text="Aucun fichier" VerticalAlignment="Center" Foreground="{DynamicResource FgPrimaryBrush}" FontWeight="SemiBold" Margin="10,0"/>
+                        <TextBlock x:Name="ModifiedIndicator" Text="*" VerticalAlignment="Center" Foreground="{DynamicResource WarningBrush}" Visibility="Collapsed"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- TextBox -->
+            <TextBox x:Name="EditorTextBox" Grid.Row="1"
+                     Background="Transparent" Foreground="{DynamicResource FgPrimaryBrush}"
+                     CaretBrush="{DynamicResource FgPrimaryBrush}" BorderThickness="0"
+                     AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap"
+                     FontFamily="{StaticResource BaseFont}" FontSize="14" Padding="15"
+                     VerticalScrollBarVisibility="Auto" TextChanged="EditorTextBox_TextChanged"/>
+
+            <!-- Status bar -->
+            <Border Grid.Row="2" Background="{DynamicResource BgSidebarBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0" Padding="10,4">
+                <TextBlock x:Name="WordCountText" Text="0 mots" Foreground="{DynamicResource FgMutedBrush}" FontSize="12" HorizontalAlignment="Right"/>
+            </Border>
+        </Grid>
+
+        <!-- Splitter 2 -->
+        <GridSplitter Grid.Column="3" Width="5" HorizontalAlignment="Stretch" 
+                      Background="{DynamicResource BorderBrush}"/>
+
+        <!-- Preview Markdown (Droite) -->
+        <Grid Grid.Column="4" Background="{DynamicResource BgMainBrush}">
+            <wv2:WebView2 x:Name="PreviewBrowser" DefaultBackgroundColor="Transparent"/>
+        </Grid>
+
+    </Grid>
+</Page>

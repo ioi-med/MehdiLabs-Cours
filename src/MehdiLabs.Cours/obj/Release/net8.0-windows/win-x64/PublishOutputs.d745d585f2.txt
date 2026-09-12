@@ -1,0 +1,2 @@
+c:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\Release\MehdiLabs.Cours.pdb
+c:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\Release\MehdiLabs.Cours.exe

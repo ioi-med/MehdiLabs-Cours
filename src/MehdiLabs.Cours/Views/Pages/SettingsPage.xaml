@@ -1,0 +1,105 @@
+<Page x:Class="MehdiLabs.Cours.Views.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:viewmodels="clr-namespace:MehdiLabs.Cours.ViewModels"
+      d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="800"
+      Title="Paramètres">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
+                <TextBlock Text="Paramètres" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource FgPrimaryBrush}"/>
+            </StackPanel>
+
+            <!-- UI Settings -->
+            <Border Grid.Row="1" Style="{StaticResource Card}" Margin="0,0,0,30">
+                <StackPanel>
+                    <TextBlock Text="Interface" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource FgPrimaryBrush}" Margin="0,0,0,15"/>
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Thème :" VerticalAlignment="Center" Foreground="{DynamicResource FgSecondaryBrush}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme}" Width="200" HorizontalAlignment="Left"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- AI Settings -->
+            <Border Grid.Row="2" Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Intelligence Artificielle" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource FgPrimaryBrush}" Margin="0,0,0,15"/>
+                    
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Provider IA par défaut :" VerticalAlignment="Center" Foreground="{DynamicResource FgSecondaryBrush}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding AvailableProviders}" SelectedItem="{Binding SelectedProvider}" Width="200" HorizontalAlignment="Left"/>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Modèle :" VerticalAlignment="Center" Foreground="{DynamicResource FgSecondaryBrush}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding AvailableModels}" SelectedItem="{Binding SelectedModel}" Width="300" HorizontalAlignment="Left"/>
+                    </Grid>
+
+                    <Separator Background="{DynamicResource BorderBrush}" Margin="0,10,0,20"/>
+                    <TextBlock Text="Clés API" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource FgPrimaryBrush}" Margin="0,0,0,15"/>
+
+                    <!-- Keys grid -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Mistral :" VerticalAlignment="Center" Foreground="{DynamicResource FgSecondaryBrush}" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding MistralKey}" Style="{StaticResource ModernTextBox}" Margin="0,0,0,10"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Gemini :" VerticalAlignment="Center" Foreground="{DynamicResource FgSecondaryBrush}" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding GeminiKey}" Style="{StaticResource ModernTextBox}" Margin="0,0,0,10"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="DeepSeek :" VerticalAlignment="Center" Foreground="{DynamicResource FgSecondaryBrush}" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DeepSeekKey}" Style="{StaticResource ModernTextBox}" Margin="0,0,0,10"/>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="GPT :" VerticalAlignment="Center" Foreground="{DynamicResource FgSecondaryBrush}" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding GPTKey}" Style="{StaticResource ModernTextBox}" Margin="0,0,0,10"/>
+
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Claude :" VerticalAlignment="Center" Foreground="{DynamicResource FgSecondaryBrush}" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ClaudeKey}" Style="{StaticResource ModernTextBox}" Margin="0,0,0,10"/>
+
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="Groq :" VerticalAlignment="Center" Foreground="{DynamicResource FgSecondaryBrush}" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding GroqKey}" Style="{StaticResource ModernTextBox}" Margin="0,0,0,10"/>
+                    </Grid>
+
+                    <Button Content="Sauvegarder les clés" Style="{StaticResource AccentButton}" Command="{Binding SaveKeysCommand}" HorizontalAlignment="Right" Padding="20,10" Margin="0,20,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Page>

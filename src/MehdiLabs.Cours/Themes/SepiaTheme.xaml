@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Sepia Theme -->
+    <Color x:Key="BgMainColor">#F4ECD8</Color>
+    <Color x:Key="BgSidebarColor">#E8DEC5</Color>
+    <Color x:Key="BgSecondaryColor">#FAF5E9</Color>
+    <Color x:Key="FgPrimaryColor">#433422</Color>
+    <Color x:Key="FgSecondaryColor">#7D6B56</Color>
+    <Color x:Key="FgMutedColor">#A69480</Color>
+    <Color x:Key="FgLightColor">#5C4A38</Color>
+    <Color x:Key="AccentColor">#D97D54</Color>
+    <Color x:Key="AccentHoverColor">#B8653F</Color>
+    <Color x:Key="BorderColor">#D5C9B3</Color>
+    <Color x:Key="SuccessColor">#6B8E23</Color>
+    <Color x:Key="WarningColor">#DAA520</Color>
+    <Color x:Key="DangerColor">#CD5C5C</Color>
+    <Color x:Key="PurpleColor">#9370DB</Color>
+
+    <SolidColorBrush x:Key="BgMainBrush" Color="{StaticResource BgMainColor}"/>
+    <SolidColorBrush x:Key="BgSidebarBrush" Color="{StaticResource BgSidebarColor}"/>
+    <SolidColorBrush x:Key="BgSecondaryBrush" Color="{StaticResource BgSecondaryColor}"/>
+    <SolidColorBrush x:Key="FgPrimaryBrush" Color="{StaticResource FgPrimaryColor}"/>
+    <SolidColorBrush x:Key="FgSecondaryBrush" Color="{StaticResource FgSecondaryColor}"/>
+    <SolidColorBrush x:Key="FgMutedBrush" Color="{StaticResource FgMutedColor}"/>
+    <SolidColorBrush x:Key="FgLightBrush" Color="{StaticResource FgLightColor}"/>
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="{StaticResource AccentHoverColor}"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
+    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
+    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}"/>
+    <SolidColorBrush x:Key="DangerBrush" Color="{StaticResource DangerColor}"/>
+    <SolidColorBrush x:Key="PurpleBrush" Color="{StaticResource PurpleColor}"/>
+
+    <sys:String x:Key="ThemeName" xmlns:sys="clr-namespace:System;assembly=mscorlib">sepia</sys:String>
+
+</ResourceDictionary>
