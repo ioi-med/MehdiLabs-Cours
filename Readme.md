@@ -11,7 +11,7 @@ Pour utiliser ce projet, vous devez installer :
 
 ## 🔑 Clés API
 
-Ce projet utilise plusieurs fournisseurs d'intelligence artificielle. Vous devrez générer des clés API pour les services que vous souhaitez utiliser :
+Ce projet utilise plusieurs fournisseurs d'intelligence artificielle. Vous pouvez générer des clés API pour les services que vous souhaitez utiliser :
 
 - **OpenAI** : [Récupérer une clé API OpenAI](https://platform.openai.com/api-keys)
 - **Anthropic (Claude)** : [Récupérer une clé API Anthropic](https://console.anthropic.com/settings/keys)
