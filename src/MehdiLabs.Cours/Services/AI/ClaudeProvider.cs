@@ -15,13 +15,12 @@ public class ClaudeProvider : IAIProvider
     private const string ApiUrl = "https://api.anthropic.com/v1/messages";
 
     public string Name => "Claude";
-    public string DefaultModel => "claude-sonnet-4-20250514";
+    public string DefaultModel => "claude-3-5-sonnet-latest";
     public IReadOnlyList<string> AvailableModels => new[]
     {
-        "claude-sonnet-4-20250514",
-        "claude-3-5-sonnet-20241022",
-        "claude-3-5-haiku-20241022",
-        "claude-3-opus-20240229"
+        "claude-3-5-sonnet-latest",
+        "claude-3-5-haiku-latest",
+        "claude-3-opus-latest"
     };
 
     public ClaudeProvider(string apiKey) => _apiKey = apiKey;
@@ -69,11 +68,23 @@ public class ClaudeProvider : IAIProvider
 
             if (!response.IsSuccessStatusCode)
             {
+                var errorDetail = "";
+                try
+                {
+                    using var errorDoc = JsonDocument.Parse(body);
+                    if (errorDoc.RootElement.TryGetProperty("error", out var errorObj) &&
+                        errorObj.TryGetProperty("message", out var msgProp))
+                        errorDetail = msgProp.GetString() ?? "";
+                }
+                catch { }
+
                 throw (int)response.StatusCode switch
                 {
                     401 => new AIProviderException("Claude", "Clé API invalide.", 401),
                     429 => new AIProviderException("Claude", "Quota dépassé. Réessaie plus tard.", 429),
-                    _ => new AIProviderException("Claude", $"Erreur serveur (HTTP {(int)response.StatusCode}).", (int)response.StatusCode)
+                    _ => new AIProviderException("Claude", string.IsNullOrEmpty(errorDetail)
+                        ? $"Erreur serveur (HTTP {(int)response.StatusCode})."
+                        : $"Erreur (HTTP {(int)response.StatusCode}): {errorDetail}", (int)response.StatusCode)
                 };
             }
 

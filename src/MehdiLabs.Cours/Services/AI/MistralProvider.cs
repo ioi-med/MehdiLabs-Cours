@@ -51,11 +51,25 @@ public class MistralProvider : IAIProvider
 
             if (!response.IsSuccessStatusCode)
             {
+                var errorDetail = "";
+                try
+                {
+                    using var errorDoc = JsonDocument.Parse(body);
+                    if (errorDoc.RootElement.TryGetProperty("error", out var errorObj) &&
+                        errorObj.TryGetProperty("message", out var msgProp))
+                        errorDetail = msgProp.GetString() ?? "";
+                    else if (errorDoc.RootElement.TryGetProperty("message", out var directMsg))
+                        errorDetail = directMsg.GetString() ?? "";
+                }
+                catch { }
+
                 throw (int)response.StatusCode switch
                 {
                     401 => new AIProviderException("Mistral", "Clé API invalide.", 401),
                     429 => new AIProviderException("Mistral", "Quota dépassé. Réessaie plus tard.", 429),
-                    _ => new AIProviderException("Mistral", $"Erreur serveur (HTTP {(int)response.StatusCode}).", (int)response.StatusCode)
+                    _ => new AIProviderException("Mistral", string.IsNullOrEmpty(errorDetail)
+                        ? $"Erreur serveur (HTTP {(int)response.StatusCode})."
+                        : $"Erreur (HTTP {(int)response.StatusCode}): {errorDetail}", (int)response.StatusCode)
                 };
             }
 

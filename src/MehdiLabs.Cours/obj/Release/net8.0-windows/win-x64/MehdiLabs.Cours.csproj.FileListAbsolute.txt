@@ -505,3 +505,4 @@ C:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\src\MehdiLabs.Cours\bin\Release\ne
 C:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\src\MehdiLabs.Cours\bin\Release\net8.0-windows\win-x64\zh-Hant\UIAutomationTypes.resources.dll
 C:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\src\MehdiLabs.Cours\bin\Release\net8.0-windows\win-x64\zh-Hant\WindowsBase.resources.dll
 C:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\src\MehdiLabs.Cours\bin\Release\net8.0-windows\win-x64\zh-Hant\WindowsFormsIntegration.resources.dll
+c:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\src\MehdiLabs.Cours\obj\Release\net8.0-windows\win-x64\MehdiLabs.Cours.sourcelink.json

@@ -40,12 +40,12 @@ public partial class ChatBubble : UserControl
 
             bubble.RootGrid.HorizontalAlignment = isUser ? HorizontalAlignment.Right : HorizontalAlignment.Left;
             bubble.BubbleBorder.Background = isUser 
-                ? (Brush)Application.Current.Resources["AccentBrush"] 
-                : (Brush)Application.Current.Resources["BgSidebarBrush"];
+                ? (Brush)bubble.FindResource("AccentBrush") 
+                : (Brush)bubble.FindResource("BgSidebarBrush");
             
             bubble.ContentTextBox.Foreground = isUser 
                 ? Brushes.White 
-                : (Brush)Application.Current.Resources["FgPrimaryBrush"];
+                : (Brush)bubble.FindResource("FgPrimaryBrush");
             
             bubble.RoleText.Text = isUser ? "Vous" : "IA";
             bubble.RoleText.Foreground = bubble.ContentTextBox.Foreground;

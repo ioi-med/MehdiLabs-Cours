@@ -13,7 +13,7 @@ public class DeepSeekProvider : IAIProvider
 {
     private readonly string _apiKey;
     private static readonly HttpClient Http = new() { Timeout = TimeSpan.FromSeconds(60) };
-    private const string ApiUrl = "https://api.deepseek.com/v1/chat/completions";
+    private const string ApiUrl = "https://api.deepseek.com/chat/completions";
 
     public string Name => "DeepSeek";
     public string DefaultModel => "deepseek-chat";
@@ -45,11 +45,23 @@ public class DeepSeekProvider : IAIProvider
 
             if (!response.IsSuccessStatusCode)
             {
+                var errorDetail = "";
+                try
+                {
+                    using var errorDoc = JsonDocument.Parse(body);
+                    if (errorDoc.RootElement.TryGetProperty("error", out var errorObj) &&
+                        errorObj.TryGetProperty("message", out var msgProp))
+                        errorDetail = msgProp.GetString() ?? "";
+                }
+                catch { }
+
                 throw (int)response.StatusCode switch
                 {
                     401 => new AIProviderException("DeepSeek", "Clé API invalide.", 401),
                     429 => new AIProviderException("DeepSeek", "Quota dépassé. Réessaie plus tard.", 429),
-                    _ => new AIProviderException("DeepSeek", $"Erreur serveur (HTTP {(int)response.StatusCode}).", (int)response.StatusCode)
+                    _ => new AIProviderException("DeepSeek", string.IsNullOrEmpty(errorDetail)
+                        ? $"Erreur serveur (HTTP {(int)response.StatusCode})."
+                        : $"Erreur (HTTP {(int)response.StatusCode}): {errorDetail}", (int)response.StatusCode)
                 };
             }
 

@@ -159,6 +159,8 @@ public class ChatbotViewModel : ViewModelBase
 
     private async Task SendAsync()
     {
+        UpdateProvider();
+
         if (CurrentConversation == null || string.IsNullOrWhiteSpace(InputText) || _provider == null)
             return;
 
@@ -174,7 +176,14 @@ public class ChatbotViewModel : ViewModelBase
         try
         {
             var model = App.Settings.GetModel(_provider.Name);
-            var reply = await _provider.SendMessageAsync(CurrentConversation.Messages, string.IsNullOrEmpty(model) ? null : model);
+            
+            var apiMessages = CurrentConversation.Messages.ToList();
+            if (!apiMessages.Any(m => m.Role == "system"))
+            {
+                apiMessages.Insert(0, new ChatMessage { Role = "system", Content = "Tu es un assistant IA expert. Tu dois TOUJOURS répondre en français, même si l'utilisateur fait des fautes d'orthographe (comme 'sa va' au lieu de 'ça va')." });
+            }
+
+            var reply = await _provider.SendMessageAsync(apiMessages, string.IsNullOrEmpty(model) ? null : model);
 
             var botMsg = new ChatMessage { Role = "assistant", Content = reply };
             CurrentConversation.Messages.Add(botMsg);
@@ -184,7 +193,6 @@ public class ChatbotViewModel : ViewModelBase
         catch (Exception ex)
         {
             var errorMsg = new ChatMessage { Role = "assistant", Content = $"❌ Erreur : {ex.Message}" };
-            CurrentConversation.Messages.Add(errorMsg);
             CurrentMessages.Add(errorMsg);
         }
         finally

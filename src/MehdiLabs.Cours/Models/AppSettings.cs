@@ -24,10 +24,10 @@ public class AppSettings
     public Dictionary<string, string> Models { get; set; } = new()
     {
         ["Mistral"] = "mistral-small-latest",
-        ["Gemini"] = "gemini-2.5-flash",
+        ["Gemini"] = "gemini-3.6-flash",
         ["DeepSeek"] = "deepseek-chat",
         ["GPT"] = "gpt-4o",
-        ["Claude"] = "claude-sonnet-4-20250514",
+        ["Claude"] = "claude-3-5-sonnet-latest",
         ["Groq"] = "openai/gpt-oss-120b",
     };
 

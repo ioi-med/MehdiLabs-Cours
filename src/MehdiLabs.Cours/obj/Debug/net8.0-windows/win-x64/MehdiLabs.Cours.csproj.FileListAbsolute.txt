@@ -505,3 +505,4 @@ C:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\src\MehdiLabs.Cours\obj\Debug\net8
 C:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\src\MehdiLabs.Cours\obj\Debug\net8.0-windows\win-x64\MehdiLabs.Cours.pdb
 C:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\src\MehdiLabs.Cours\obj\Debug\net8.0-windows\win-x64\MehdiLabs.Cours.genruntimeconfig.cache
 C:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\src\MehdiLabs.Cours\obj\Debug\net8.0-windows\win-x64\ref\MehdiLabs.Cours.dll
+c:\Users\2652742\Desktop\MehdiLabs-Cours\V2.0\src\MehdiLabs.Cours\obj\Debug\net8.0-windows\win-x64\MehdiLabs.Cours.sourcelink.json

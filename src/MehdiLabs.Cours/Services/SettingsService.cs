@@ -2,6 +2,7 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using MehdiLabs.Cours.Models;
+using MehdiLabs.Cours.Services.AI;
 
 namespace MehdiLabs.Cours.Services;
 
@@ -64,6 +65,19 @@ public class SettingsService
                         }
                     }
                     _settings.ApiKeys = decodedKeys;
+
+                    // Valider les modèles pour s'assurer qu'ils existent toujours (évite les erreurs 404 avec les vieux modèles)
+                    foreach (var providerName in AIProviderFactory.ProviderNames)
+                    {
+                        var available = AIProviderFactory.GetModels(providerName);
+                        if (available.Any())
+                        {
+                            if (!_settings.Models.TryGetValue(providerName, out var currentModel) || !available.Contains(currentModel))
+                            {
+                                _settings.Models[providerName] = available.First();
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception)

@@ -18,8 +18,12 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        // Déterminer les répertoires de l'application
-        AppDir = AppDomain.CurrentDomain.BaseDirectory;
+        // Déterminer les répertoires de l'application (fix for single-file .exe)
+        var processPath = Environment.ProcessPath;
+        AppDir = !string.IsNullOrEmpty(processPath) 
+            ? Path.GetDirectoryName(processPath) ?? AppDomain.CurrentDomain.BaseDirectory 
+            : AppDomain.CurrentDomain.BaseDirectory;
+            
         DataDir = AppDir;
         CoursDir = Path.Combine(DataDir, "cours");
         Directory.CreateDirectory(CoursDir);

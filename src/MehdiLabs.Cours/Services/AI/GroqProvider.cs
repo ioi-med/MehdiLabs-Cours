@@ -20,7 +20,9 @@ public class GroqProvider : IAIProvider
     public IReadOnlyList<string> AvailableModels => new[]
     {
         "openai/gpt-oss-120b",
-        "qwen/qwen3.6-27b"
+        "openai/gpt-oss-20b",
+        "qwen/qwen3.8-27b",
+        "groq/compound"
     };
 
     public GroqProvider(string apiKey) => _apiKey = apiKey;
@@ -51,11 +53,26 @@ public class GroqProvider : IAIProvider
 
             if (!response.IsSuccessStatusCode)
             {
+                // Extraire le message d'erreur de l'API si possible
+                var errorDetail = "";
+                try
+                {
+                    using var errorDoc = JsonDocument.Parse(body);
+                    if (errorDoc.RootElement.TryGetProperty("error", out var errorObj) &&
+                        errorObj.TryGetProperty("message", out var msgProp))
+                    {
+                        errorDetail = msgProp.GetString() ?? "";
+                    }
+                }
+                catch { }
+
                 throw (int)response.StatusCode switch
                 {
                     401 => new AIProviderException("Groq", "Clé API invalide.", 401),
                     429 => new AIProviderException("Groq", "Quota dépassé. Réessaie plus tard.", 429),
-                    _ => new AIProviderException("Groq", $"Erreur serveur (HTTP {(int)response.StatusCode}).", (int)response.StatusCode)
+                    _ => new AIProviderException("Groq", string.IsNullOrEmpty(errorDetail) 
+                        ? $"Erreur serveur (HTTP {(int)response.StatusCode})." 
+                        : $"Erreur (HTTP {(int)response.StatusCode}): {errorDetail}", (int)response.StatusCode)
                 };
             }
 

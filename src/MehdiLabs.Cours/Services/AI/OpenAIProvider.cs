@@ -45,11 +45,23 @@ public class OpenAIProvider : IAIProvider
 
             if (!response.IsSuccessStatusCode)
             {
+                var errorDetail = "";
+                try
+                {
+                    using var errorDoc = JsonDocument.Parse(body);
+                    if (errorDoc.RootElement.TryGetProperty("error", out var errorObj) &&
+                        errorObj.TryGetProperty("message", out var msgProp))
+                        errorDetail = msgProp.GetString() ?? "";
+                }
+                catch { }
+
                 throw (int)response.StatusCode switch
                 {
                     401 => new AIProviderException("GPT", "Clé API invalide.", 401),
                     429 => new AIProviderException("GPT", "Quota dépassé. Réessaie plus tard.", 429),
-                    _ => new AIProviderException("GPT", $"Erreur serveur (HTTP {(int)response.StatusCode}).", (int)response.StatusCode)
+                    _ => new AIProviderException("GPT", string.IsNullOrEmpty(errorDetail)
+                        ? $"Erreur serveur (HTTP {(int)response.StatusCode})."
+                        : $"Erreur (HTTP {(int)response.StatusCode}): {errorDetail}", (int)response.StatusCode)
                 };
             }
 

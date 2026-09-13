@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2652742\\Desktop\\MehdiLabs-Cours\\V2.0\\src\\MehdiLabs.Cours\\MehdiLabs.Cours.csproj": {}
+    "c:\\Users\\2652742\\Desktop\\MehdiLabs-Cours\\V2.0\\src\\MehdiLabs.Cours\\MehdiLabs.Cours.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2652742\\Desktop\\MehdiLabs-Cours\\V2.0\\src\\MehdiLabs.Cours\\MehdiLabs.Cours.csproj": {
+    "c:\\Users\\2652742\\Desktop\\MehdiLabs-Cours\\V2.0\\src\\MehdiLabs.Cours\\MehdiLabs.Cours.csproj": {
       "version": "2.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2652742\\Desktop\\MehdiLabs-Cours\\V2.0\\src\\MehdiLabs.Cours\\MehdiLabs.Cours.csproj",
+        "projectUniqueName": "c:\\Users\\2652742\\Desktop\\MehdiLabs-Cours\\V2.0\\src\\MehdiLabs.Cours\\MehdiLabs.Cours.csproj",
         "projectName": "MehdiLabs.Cours",
-        "projectPath": "C:\\Users\\2652742\\Desktop\\MehdiLabs-Cours\\V2.0\\src\\MehdiLabs.Cours\\MehdiLabs.Cours.csproj",
+        "projectPath": "c:\\Users\\2652742\\Desktop\\MehdiLabs-Cours\\V2.0\\src\\MehdiLabs.Cours\\MehdiLabs.Cours.csproj",
         "packagesPath": "C:\\Users\\2652742\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2652742\\Desktop\\MehdiLabs-Cours\\V2.0\\src\\MehdiLabs.Cours\\obj\\",
+        "outputPath": "c:\\Users\\2652742\\Desktop\\MehdiLabs-Cours\\V2.0\\src\\MehdiLabs.Cours\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\2652742\\AppData\\Roaming\\NuGet\\NuGet.Config"
